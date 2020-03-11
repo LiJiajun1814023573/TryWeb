@@ -1,0 +1,481 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    min-height:1020px; 
+}
+button{
+    outline:none;
+    border:none;
+    cursor: pointer;
+}
+@font-face {
+    font-family: 'icomoon';
+    src:  url('./fonts/icomoon.eot?rxbur1');
+    src:  url('./fonts/icomoon.eot?rxbur1#iefix') format('embedded-opentype'),
+      url('./fonts/icomoon.ttf?rxbur1') format('truetype'),
+      url('./fonts/icomoon.woff?rxbur1') format('woff'),
+      url('./fonts/icomoon.svg?rxbur1#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+a{
+    outline:none;
+    text-decoration: none;
+}
+.app{
+    display:flex;
+}
+/* 根据需求,头部需固定定位,用grid布局,便于响应式布局,此处数据直接使用源码数据
+背景图片经过了缩放,(直接用图像处理程序缩放,也可size缩放) */
+.app_header{
+    box-sizing:border-box;
+    width:100%;
+    display:flex;
+    position:fixed;
+    z-index:100;
+    height:60px;
+    padding: 12px 15px;
+    justify-content:space-between;
+    grid-template-columns:1fr 74px 1fr;
+    align-items:stretch;
+    background-image:url(./bgc-image/2qbg.png);  ;
+}
+/* 附上一层透明盒子,达到原背景的效果 */
+.app_header_face{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:-9999;
+    width:100%;
+    height:60px;
+    background-color:rgba(0,0,0,0.5);
+}
+.app-nav_tag{
+    display: block;
+}
+/* 设置a为行内块便于调整大小,同时相对定位便于后面绝对定位 */
+.app_nav_taglink{
+    display:inline-block;
+    position:relative;
+    width:24px;
+    height:36px;
+}
+/* 三道横线用盒子模拟,填充,同时绝对定位较为方便,又因为进入页面以及点击后有短暂动画.所以加上动画 */
+.app_nav_taglink div{
+    position:absolute;
+    width:100%;
+    height:4px;
+    background-color: #fcaf17;
+    top:50%;
+    margin-top:-2px;
+    transition:0.2s;
+}
+.app_nav_taglink_{
+    transform:translateY(0);
+}
+/* 对第一道横线和第三道横线进行位置的调整 */
+.app_three_first{
+    transform:translateY(-8px);
+}
+.app_three_third{
+    transform:translateY(8px);
+}
+.app_header_iconlink{
+    display:inline-block;
+    width:100%;
+    height:100%;
+}
+.app_header_iconlink svg{
+    width:74px;
+    height:100%;
+}
+.app_header_uesr{
+    display:flex;
+    /* justify-content: flex-end; */
+}
+.app_header_userlink{
+    display:inline-block;
+    width:36px;
+    height:100%;
+}
+.icon-user{
+    display:inline-block;
+    width:100%;
+    height:100%;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.2);
+}
+.icon-user:before{
+    display:inline-block;
+    font-family:"icomoon";
+    color:#ccc;
+    content: "\e971";
+    font-size:25px;
+    width:100%;
+    text-align:center;
+    line-height:36px;
+  }
+.app_header_user div{
+      position:fixed;
+      box-sizing: border-box;
+      top:60px;
+      right:0;
+      width:11%;
+      height:71px;
+      transition:0.3s;
+      background-color: white;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+      padding:10px ;
+      /* 给padding的原因是注意到a并不是充满整个父盒子,以至于hover时没有变成手状 */
+    }
+.app_header_userinformation{
+      transform: translateX(100%);
+ }
+ .app_header_userinform{
+     transform: translateX(0);
+ }
+/* 原本此处也应该为适应,先暂且这样 */
+ .app_headeruser_top,
+ .app_headeruser_bottom{
+     display:inline-block;
+     box-sizing: border-box;
+     width:100%;
+     margin-bottom:10px;
+     height:25.5px;
+     border-bottom: 1px solid #ccc;
+     text-align:left;
+     vertical-align: middle;
+     font-size:13px;
+     color:black;
+ }
+ .app_headeruser_bottom{
+     border-bottom:0;
+ }
+/* 在布置轮播图的时候发现一个问题:
+绝对定位的盒子不能撑大父元素高度,而此时高度也是自适应,无法给出具体大小,那怎嘛办呢?
+于是试图将第一个子元素设为相对定位,其他子元素设为绝对定位,解决!
+解决这类问题办法貌似并不多,由于不是子元素浮动元素,而是绝对定位元素.一般的清除浮动和BFC是无法解决的,只有转换思路 */
+.app_watchnow{
+    overflow: hidden;
+    position:relative;
+     width:100%;
+}
+ .app_watchnow_div1{
+     position:relative;
+     margin-top:60px;
+     display: flex;
+     width:100%;
+ }
+ .app_watchnow_firstimage{
+     width:100%;
+     padding-top:57%;
+     /* 这里发现了一点小问题很值得关注 */
+     /* 1.bgi可以同时放置多个背景图片 */
+     /* 2.前面的图片必须是png格式然后是jpg格式,如果反了将看不到png格式的图片背景了 */
+     background-image:url(./bgc-image/2.png),url(./bgc-image/3.png)
+     , url(./bgc-image/1.jpg);
+     background-position: center;
+     background-size: cover;
+ }
+ .app_watchnow_div2{
+    position: absolute;
+    display: flex;
+    width:100%; 
+    top:60px;   
+    right:-100%;
+}
+.app_watchnow_secondimage{
+    width:100%;
+    padding-top:57%;
+    background-image:url(./bgc-image/22.png),url(./bgc-image/32.png)
+    , url(./bgc-image/12.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.app_watchnow_div3{
+    position: absolute;
+    display: flex;
+    width:100%;
+    right:-200%;
+    top:60px;
+}
+.app_watchnow_thirdimage{
+    width:100%;
+    padding-top:57%;
+       background-image: url(./bgc-image/33.jpg);
+    background-position: center;
+    background-size: cover;
+}
+/*这里也存在问题,就是从第三个按钮点击状态到第一个按钮点击状态时
+因为这里采用负方向translate的问题,所以动画时间会被省略,点击后立即出现第一张图(相当于把后面图片挤过去了).
+但其他方向没有问题 */
+.app_watchonw_firststatus{
+    transition:0.2s;
+    transform:translateX(0);
+}
+.app_watchnow_secondstatus{
+    transition:0.2s;
+    transform:translateX(-100%);
+}
+.app_watchnow_thirdstatus{
+    transition:0.2s;
+    transform:translateX(-200%);
+}
+.app_section_footer{
+    width:100%;
+    overflow:hidden;
+}
+.app_footer_first{
+    position: relative;
+    width:100%;
+    overflow:hidden;
+}
+.app_footer_button{
+    box-sizing: border-box;
+    height:36px;
+    font-size:13px;
+    font-weight:900;
+    background-color:#fcaf17;
+    font-family:'HelveticaNeueLTW07-85Heavy';
+}
+.app_footer_introduction{
+    box-sizing: border-box;
+    color:white;
+    background-color: black;
+    /* 字体来源于源码 */
+    font-weight: 900;
+    font-size:13px;
+    font-family:'HelveticaNeueLTW07-85Heavy';
+   line-height:53px;
+}
+@media screen and (min-width:120px){
+    .app_footer_introduction{
+        text-align:center;
+        height:53px;
+        width:100%;
+    }
+    .app_footer_button{
+        outline:none;
+        border:none;
+        display:block;
+        width:100%;
+    }
+}
+@media screen and (min-width:769px){
+    .app_footer_first{
+        display:flex;
+    }
+    .app_footer_introduction{
+        padding-left:10px;
+        text-align:left;
+        height:36px;
+        flex:1;
+        line-height:36px;
+    }
+    .app_footer_button{
+        height:36px;
+        width:135px;
+    }
+}
+.app_section_buttonthree{
+    line-height:30px;
+    width:100%;
+    height:30px;
+    text-align:center;
+}
+.app_section_buttonthree button{
+    margin: 0 4px;
+    height:10px;
+    width:10px;
+    border-radius:5px;
+    background-color: black;
+}
+.app_button3_yellow{
+    margin: 0 4px;
+    height:10px;
+    width:10px;
+    border-radius:5px;
+    background-color:#fcaf17 !important;
+}
+.app_newswire,
+.app_featuredgames{
+    box-sizing:border-box;
+    padding:20px 20px;
+    width:100%;
+}
+.app_h{
+    font-weight:900;
+}
+.app_line{
+    width:100%;
+    height:6px;
+    background-color:black;
+    margin-bottom:20px;
+}
+.app_newswire_content,
+.app_featuredgames_content{
+    width:100%;
+    display:flex;
+    flex:1;
+    flex-flow:row wrap;
+    justify-content: space-between;
+}
+.app_newswire_item1{
+    display:block;
+    flex:0 0 100%;
+}
+
+[class^="app_newswire_item"],
+[class^="app_featuredgames_item"]{
+    display:block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    border:1px solid #ccc;
+    box-shadow: 3px 3px 6px 0 rgba(0,0,0,0.3);
+}   
+[class^="app_newswire_item"]:hover .app_cm_2{
+    color:#fcaf17;
+    transition: color 0.2s;
+}
+[class^="app_newswire_pi"],
+[class^="app_featuredgames_pi"]{
+    width:100%;
+    padding-top:100%;
+    background-position: top left;
+    background-size: cover;
+}
+[class^="app_featuredgames_pi"]{
+    padding-top:123.4%;
+}
+.app_featuredgames_pi1{
+    background-image: url(./bgc-image/f1.jpg);
+}
+.app_featuredgames_pi2{
+    background-image: url(./bgc-image/f2.jpg);
+}
+.app_featuredgames_pi3{
+    background-image: url(./bgc-image/f3.jpg);
+}
+.app_featuredgames_pi4{
+    background-image: url(./bgc-image/f4.jpg);
+}
+.app_newswire_pi1{
+    background-image:url(./bgc-image/pi1.jpg);
+    padding-top:55%;
+}
+.app_newswire_pi2{
+    background-image:url(./bgc-image/pi2.jpg);
+}
+.app_newswire_pi3{
+    background-image:url(./bgc-image/pi3.jpg);
+}
+.app_newswire_pi4{
+    background-image:url(./bgc-image/pi4.jpg);
+}
+.app_newswire_pi5{
+    background-image:url(./bgc-image/pi5.jpg);
+}
+.app_newswire_pi6{
+    background-image:url(./bgc-image/pi6.jpg);
+}
+.app_newswire_cm{
+    display: flex;
+    height:60px;
+    flex-direction: column;
+    flex:2;
+    justify-content: center;
+}
+.app_cm_1,
+.app_cm_2{
+    line-height:30px;
+    box-sizing: border-box;
+    padding-left:10px;
+    flex:1;
+    font-family: sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:black;
+}
+.app_cm_2{
+    font-size:18px;
+}
+@media screen and (min-width:120px){
+    [class^="app_newswire_item"]{
+        flex:0 0 100%;
+    }
+    [class^="app_featuredgames_item"]{
+        flex:0 0 100%;
+    }
+  
+}
+@media screen and (min-width:769px){
+    [class^="app_newswire_item"]{
+        display:block;
+        flex:0 0 48%;
+    }
+    
+    .app_newswire_item1{
+        flex:0 0 100%;
+    }
+    [class^="app_featuredgames_item"]{
+        flex:0 0 48%;
+    }
+}
+.app_viewmore_footer{
+    width:100%;
+    text-align:center;
+}
+.app_viewmore{
+        color:black;
+        position:relative;
+}
+
+.app_viewmore:after{
+    position:absolute;
+    z-index:-99;
+    content:"";
+    width:100%;
+    height:4px;
+    left:0;
+    bottom:-2px;
+    background-color: #fcaf17;
+    transition: 0.2s;
+}
+.app_viewmore:hover:after{
+    height:100%;
+}
+.app_footer{
+    position:relative;
+    width:100%;
+    margin-top:80px;
+    height:60px;
+    text-align:center;
+    color:white;
+    font-weight: 700;
+    background-color:black;
+}
+.app_footer1{
+    position:absolute;
+    left:20px;
+    line-height:60px;
+}
+.app_footer2{
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    margin: 0 auto;
+    line-height:60px;
+}
+.app_footer_span{
+    margin-right: 10px;
+}
+.app_footer3{
+    position:absolute;
+    right:20px;
+    line-height:60px;
+}
