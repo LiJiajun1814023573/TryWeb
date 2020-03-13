@@ -159,7 +159,7 @@ class My{
         promises.forEach((promise)=>{
             promise.then(
                 value =>{
-                    resolves.push(value)
+                    values.push(value)
                     if (values.length === promises.length){
                         resolve(values)
                     }
