@@ -26,9 +26,7 @@ const get_avater = (message,num) => {
         //注意不能用var声明!var会带来变量提升,最后取任务队列中的任务于主线程中依次执行时,引用的i的值已经变成3,最后只会打印出3.jpg
         //而let创建块级作用域,执行代码时根据作用域链在父级AO即函数活动对象中寻找变量值,每个i是不一样的
         for(let i = 0; i < urls.length; i++){
-            console.log('开始循环....')
             https.get(urls[i],req => {
-                console.log('https...')
                 var theimg = ''
                 req.setEncoding('binary')
                 req.on('data',function (every) {
