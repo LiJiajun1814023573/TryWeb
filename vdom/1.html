@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='./createElement.js'></script>
+    <script src='./diff.js'></script>
+    <script src='./patch.js'></script>
+</head>
+<body>
+    <script>
+        // let V_DOM = new createElement('ul',{class:'list'},[
+        // new createElement('li', {class:'item'},['item1']),
+        // new createElement('li', {class:'item'},['item2']),
+        // new createElement('li', {class:'item'},['item3'])
+        // ])
+        // let N_DOM = new createElement('ul',{class:'list'},[
+        // new createElement('li', {class:'first'},['item1']),
+        // new createElement('li', {class:'item'},['item2']),
+        // new createElement('li', {class:'item'},['item3'])
+        // ])
+        // //打印虚拟DOM
+        // console.log(V_DOM);
+        // let el = V_DOM.render();
+        // console.log(el);
+        // document.body.appendChild(el);
+        // let result = diff(V_DOM,N_DOM);
+        // patch(el,result)
+        // console.log(result)    
+        // 1. 构建虚拟DOM
+let tree = new createElement('div', {'id': 'test'}, [
+    new createElement('h1', {style: 'color: yellow'}, ['颜色测试']),
+    new createElement('p', {},['文本内容测试']),
+    new createElement('ul',{} ,[new createElement('li',{class:'old'},[]),new createElement('li',{class:'one'},['添加li测试'])])
+])
+
+// 2. 通过虚拟DOM构建真正的DOM
+let root = tree.render()
+document.body.appendChild(root)
+
+// 3. 生成新的虚拟DOM
+var newTree = new createElement('div', {'id': 'test'}, [
+new createElement('h1', {style: 'color: red'}, ['颜色改变了']),
+new createElement('p',{},['文本内容改变了']),
+new createElement('ul',{}, [new createElement('li',{class:'new'},['添加了li']), new createElement('li',{class:'one'},['添加li测试']),new createElement('li',{class:'new2'},['增加的第二个li'])])
+])
+
+// 4. 比较两棵虚拟DOM树的不同
+var patches = diff(tree, newTree)
+console.log(patches)
+
+// 5. 在真正的DOM元素上应用变更
+patch(root, patches)
+    </script>
+</body>
+</html>
