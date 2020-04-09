@@ -1,0 +1,28 @@
+{
+    "window.zoomLevel": -2,
+    "files.autoSave": "afterDelay",
+    "liveServer.settings.NoBrowser": true,
+    "liveServer.settings.useBrowserPreview": true,
+    "liveServer.settings.showOnStatusbar": false,
+    "files.associations":{
+        "*.art":"html"
+    },
+    "workbench.colorTheme": "Code Blue",
+    "background.useDefault": false,
+    "background.enabled": true,
+"background.customImages": [
+"1.jpg"
+],
+"background.style": {
+"content": "‘‘",
+"pointer-events": "none",
+"position": "absolute",
+"z-index": "99999",
+"width": "100%",
+"height": "100%",
+"background-position": "center",
+"background-repeat": "no-repeat",
+"background-size": "100%,100%",
+"opacity": 0.1
+}
+}
