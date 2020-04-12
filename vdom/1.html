@@ -5,54 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+</head>
+<body>
     <script src='./createElement.js'></script>
     <script src='./diff.js'></script>
     <script src='./patch.js'></script>
-</head>
-<body>
     <script>
-        // let V_DOM = new createElement('ul',{class:'list'},[
-        // new createElement('li', {class:'item'},['item1']),
-        // new createElement('li', {class:'item'},['item2']),
-        // new createElement('li', {class:'item'},['item3'])
-        // ])
-        // let N_DOM = new createElement('ul',{class:'list'},[
-        // new createElement('li', {class:'first'},['item1']),
-        // new createElement('li', {class:'item'},['item2']),
-        // new createElement('li', {class:'item'},['item3'])
-        // ])
-        // //打印虚拟DOM
-        // console.log(V_DOM);
-        // let el = V_DOM.render();
-        // console.log(el);
-        // document.body.appendChild(el);
-        // let result = diff(V_DOM,N_DOM);
-        // patch(el,result)
-        // console.log(result)    
-        // 1. 构建虚拟DOM
-let tree = new createElement('div', {'id': 'test'}, [
-    new createElement('h1', {style: 'color: yellow'}, ['颜色测试']),
-    new createElement('p', {},['文本内容测试']),
-    new createElement('ul',{} ,[new createElement('li',{class:'old'},[]),new createElement('li',{class:'one'},['添加li测试'])])
-])
+        let oldVnode = createElement('ul',{},createElement('li',{
+            style:{
+                background:'red'
+            },
+            key:'A'
+        },'A'),
+        createElement('li',{
+            style:{
+                background:'yellow'
+            },
+            key: 'B'
+        },'B'),
+        createElement('li',{
+            style:{
+                background:'blue'
+            },
+            key:'C'
+        },'C'),
+        createElement('li',{
+            style:{
+                background:'green'
+            },
+            key: 'D'
+        },'D'))
+        console.log(oldVnode)
+        let app = document.querySelector('body')
+        render(oldVnode,app)
+        let newVnode = createElement('ul',{},
+        createElement('li',{
+            style:{
+                background:'green'
+            },
+            key: 'D'
+        },'D'),
+        createElement('li',{
+            style:{
+                background:'red'
+            },
+            key:'A'
+        },'A'),
+        createElement('li',{
+            style:{
+                background:'yellow'
+            },
+            key: 'B'
+        },'B'),
+        createElement('li',{
+            style:{
+                background:'blue'
+            },
+            key:'C'
+        },'C'),
+     )
+        setTimeout(()=>{
+            patch(oldVnode,newVnode)
+        },1000)
+    // let shop1 = createElement('li',{       
+    //         style:{
+    //             background:'red'
+    //         },
+    //         key:'A'
+    //     },createElement('span',{id:'A1'},'商品1|'),createElement('span',{id:'A2'},'50'),createElement('button',{id:'A3'},'选择'),createElement('button',{id:'A4'},'删除'))
+    //    let shop2 =  createElement('li',{
+    //         style:{
+    //             background:'yellow'
+    //         },
+    //         key: 'B'
+    //     },createElement('span',{id:'B1'},'商品2|'),createElement('span',{id:'B2'},'80'),createElement('button',{id:'B3'},'选择'), createElement('button',{id:'B4'},'删除'))
 
-// 2. 通过虚拟DOM构建真正的DOM
-let root = tree.render()
-document.body.appendChild(root)
+    //    let shop3 = createElement('li',{
+    //         style:{
+    //             background:'blue'
+    //         },
+    //         key:'C'
+    //     },createElement('span',{id:'C1'},'商品3|'),createElement('span',{id:'C2'},'20'),createElement('button',{id:'C3'},'选择'),createElement('button',{id:'C4'},'删除'))
+    //     let shop4 = createElement('li',{
+    //         style:{
+    //             background:'green'
+    //         },
+    //         key: 'D'
+    //     },createElement('span',{id:'D1'},'商品4|'),createElement('span',{id:'D2'},'40'),createElement('button',{id:'D3'},'选择'),createElement('button',{id:'D4'},'删除'))
+      
+    //     let oldVnode = createElement('ul',{id:'shoppingList'},shop1,shop2,shop3,shop4)
 
-// 3. 生成新的虚拟DOM
-var newTree = new createElement('div', {'id': 'test'}, [
-new createElement('h1', {style: 'color: red'}, ['颜色改变了']),
-new createElement('p',{},['文本内容改变了']),
-new createElement('ul',{}, [new createElement('li',{class:'new'},['添加了li']), new createElement('li',{class:'one'},['添加li测试']),new createElement('li',{class:'new2'},['增加的第二个li'])])
-])
 
-// 4. 比较两棵虚拟DOM树的不同
-var patches = diff(tree, newTree)
-console.log(patches)
+    //     console.log(oldVnode)
+    //     let app = document.querySelector('body')
+    //     render(oldVnode,app)
 
-// 5. 在真正的DOM元素上应用变更
-patch(root, patches)
+  
+    //     newVnode = createElement('ul',{id:'shoppingList'},shop2,shop1,shop4)
+    //     setTimeout(()=>patch(oldVnode,newVnode),1000)
     </script>
 </body>
 </html>
