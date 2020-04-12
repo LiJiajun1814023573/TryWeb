@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='./1.js'></script>
+    <script src="../vdom/createElement.js"></script>
+    <script src="../vdom/diff.js"></script>
+    <script src="../vdom/patch.js"></script>
+    <style>
+    button{
+      display:inline-block;
+    }
+    #A2,#B2,#C2,#D2{
+      padding-left: 100px;
+    }
+    </style>
+</head>
+<body>
+    <!-- <ul id="shoppingList">
+      <li key="A">商品1<span>price:50</span><button id="A">选择</button></li>
+      <li key="B">商品2<span>price:80</span><button id="B">选择</button></li>
+      <li key="C">商品3<span>price:20</span><button id="C">选择</button></li>
+      <li key="D">商品4<span>price:40</span><button id="D">选择</button></li>
+    </ul> -->
+    <!-- <div id="result">
+      <span>商品为</span>
+      <span id="contents"></span>
+      <span>总价为</span>
+      <span id="prices"></span>
+    </div> -->
+    <script>
+      //创建dom(商品部分)
+        let shop1 = createElement('li',{       
+            style:{
+                background:'red'
+            },
+            key:'A'
+        },createElement('span',{id:'A1'},'商品1|'),createElement('span',{id:'A2'},'50'),createElement('button',{id:'A3'},'选择'),createElement('button',{id:'A4'},'删除'))
+       let shop2 =  createElement('li',{
+            style:{
+                background:'yellow'
+            },
+            key: 'B'
+        },createElement('span',{id:'B1'},'商品2|'),createElement('span',{id:'B2'},'80'),createElement('button',{id:'B3'},'选择'), createElement('button',{id:'B4'},'删除'))
+
+       let shop3 = createElement('li',{
+            style:{
+                background:'blue'
+            },
+            key:'C'
+        },createElement('span',{id:'C1'},'商品3|'),createElement('span',{id:'C2'},'20'),createElement('button',{id:'C3'},'选择'),createElement('button',{id:'C4'},'删除'))
+        let shop4 = createElement('li',{
+            style:{
+                background:'green'
+            },
+            key: 'D'
+        },createElement('span',{id:'D1'},'商品4|'),createElement('span',{id:'D2'},'40'),createElement('button',{id:'D3'},'选择'),createElement('button',{id:'D4'},'删除'))
+      
+        let oldVnode = createElement('ul',{id:'shoppingList'},shop1,shop2,shop3,shop4)
+
+
+        console.log(oldVnode)
+        let app = document.querySelector('body')
+        render(oldVnode,app)
+
+        //创建dom(结果部分)
+        let result = createElement('div',{id:'result'},createElement('div',{},'选购的商品有'),createElement('span',{},'总价为'))
+
+        console.log(result)
+        render(result,app)
+       
+      //
+      function addOrDelete(state = undefined, action) {
+        if (typeof state === 'undefined') {
+          return {
+            Ashop:{count:0},
+            Bshop:{count:0},
+            Cshop:{count:0},
+            Dshop:{count:0},
+          }
+        }
+
+        switch (action.type) {
+          case 'add':
+            switch(action.key){
+              case'A':
+              state.Ashop.content = action.content
+              state.Ashop.price = action.price
+              state.Ashop.count++
+              break
+              case'B':
+              state.Bshop.content = action.content
+              state.Bshop.price = action.price
+              state.Bshop.count++
+              break
+              case'C':
+              state.Cshop.content = action.content
+              state.Cshop.price = action.price
+              state.Cshop.count++
+              break
+              case'D':
+              state.Dshop.content = action.content
+              state.Dshop.price = action.price
+              state.Dshop.count++
+
+              break
+            }
+
+            return state
+          //删除商品
+          case 'delete':
+            switch(action.key){
+              case'A':
+              state.Ashop.count--
+              if(state.Ashop.count==0){
+              delete state.Ashop.content
+              delete state.Ashop.price
+              }else if(state.Ashop.count<0){
+                state.Ashop.count = 0
+              }
+              break
+
+              case'B':
+              state.Bshop.count--
+              if(state.Bshop.count==0){
+              delete state.Bshop.content
+              delete state.Bshop.price
+              }　else if(state.Bshop.count<0){
+                state.Bshop.count = 0
+              }
+              break
+
+              case'C':
+              state.Cshop.count--
+              if(state.Cshop.count==0){
+              delete state.Cshop.content
+              delete state.Cshop.price
+              }　else if(state.Cshop.count<0){
+                state.Cshop.count = 0
+              }
+              break
+
+              case'D':
+              state.Dshop.count--
+              if(state.Dshop.count==0){
+              delete state.Dshop.content
+              delete state.Dshop.price
+              }　else if(state.Dshop.count<0){
+                state.Dshop.count = 0
+              }
+            }
+            return state
+          default:
+            return state
+        }
+      }
+       
+      let actionA =  {
+        type:'add',
+        content: document.getElementById('A1').innerText,
+        price:document.getElementById('A2').innerText,
+        key:'A'
+      }
+
+      let actionB =  {
+        type:'add',
+        content: document.getElementById('B1').innerText,
+        price:document.getElementById('B2').innerText,
+        key:'B'
+      }
+
+      let actionC =  {
+        type:'add',
+        content: document.getElementById('C1').innerText,
+        price:document.getElementById('C2').innerText,
+        key:'C'
+      }
+
+      let actionD =  {
+        type:'add',
+        content: document.getElementById('D1').innerText,
+        price:document.getElementById('D2').innerText,
+        key:'D'
+      }
+      let deletes= []
+      deletes[0]={
+          type:'delete',
+          key:'A'
+        }
+      deletes[1]={
+          type:'delete',
+          key:'B'
+        }
+      deletes[2]={
+          type:'delete',
+          key:'C'
+        }
+      deletes[3]={
+          type:'delete',
+          key:'D'
+        }
+      let store = uniqueRedux.createStore(addOrDelete)
+      let  shoppingList= document.getElementById('shoppingList')
+      function renderIt() {
+        let shops = '选购的商品有'
+        let finalprice = '总价为'
+        let state= store.getState()
+        let theprice = 0;
+        if(state.Ashop.content){
+          shops +=state.Ashop.content
+          theprice += state.Ashop.count*Number(state.Ashop.price)
+        }
+        if(state.Bshop.content){
+          shops +=state.Bshop.content
+          theprice += state.Bshop.count*Number(state.Bshop.price)
+        }
+        if(state.Cshop.content){
+          shops +=state.Cshop.content
+          theprice += state.Cshop.count*Number(state.Cshop.price)
+        }
+        if(state.Dshop.content){
+          shops +=state.Dshop.content
+          theprice += state.Dshop.count*Number(state.Dshop.price)
+        }
+        
+        finalprice += theprice
+        console.log(shops)
+        console.log(finalprice)
+        let result2 = createElement('div',{id:'result'},createElement('div',{},shops),createElement('span',{},finalprice))
+        patch(result,result2)
+      }
+
+      store.subscribe(renderIt)
+    
+      document.getElementById('A3')
+        .addEventListener('click', function () {
+          store.dispatch(actionA)
+        })
+      
+      document.getElementById('B3')
+        .addEventListener('click', function () {
+          store.dispatch(actionB)
+        })
+
+      document.getElementById('C3')
+        .addEventListener('click', function () {
+          store.dispatch(actionC)
+        })
+
+      document.getElementById('D3')
+        .addEventListener('click', function () {
+          store.dispatch(actionD)
+        })
+      document.getElementById('A4')
+        .addEventListener('click',function(){
+          store.dispatch(deletes[0])
+        })
+      
+      document.getElementById('B4')
+        .addEventListener('click',function(){
+          store.dispatch(deletes[1])
+        })
+
+      document.getElementById('C4')
+        .addEventListener('click',function(){
+          store.dispatch(deletes[2])
+        })
+
+      document.getElementById('D4')
+        .addEventListener('click',function(){
+          store.dispatch(deletes[3])
+        })
+    </script>
+</body>
+</html>

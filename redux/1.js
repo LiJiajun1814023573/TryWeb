@@ -16,7 +16,7 @@ let combineReducers = (...reducers)=>{
     return reducer= (state = {},action)=>{
         let result = {}
         for (key in reducers ){
-            result.key = reducers[key](state.key,action)
+            result[key] = reducers[key](state.key,action)
         }
         return result
     }
@@ -76,3 +76,4 @@ class Redux {
     }
 }
 const uniqueRedux = new Redux
+

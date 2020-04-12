@@ -24,7 +24,7 @@
       </p>
     </div>
     <script>
-      function counter(state, action) {
+      function counter(state = undefined, action) {
         if (typeof state === 'undefined') {
           return 0
         }
