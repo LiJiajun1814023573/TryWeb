@@ -1,0 +1,7 @@
+export const addTodo = text => ({type:'ADD',text})
+export const deleteTodo = id => ({type:'DELETE',id})
+export const editTodo = (id,text)=> ({type:'EDIT',id,text})
+export const completeTodo = id => ({type:'COMPLETE',id})
+export const completeAll =() => ({type:'COMPLETE_ALL'})
+export const clearCompleted = () => ({type:'CLEAR'})
+export const setVisibilityFilter = filter => ({type:'SET_VISIBILITY_FILTER',filter})
