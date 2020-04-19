@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            font-size: 24px;
+            font-weight: 300;
+        }      
+        #header{
+            position:relative;
+            width: 700px;
+            margin: 0 auto;
+        }
+        h1{
+            position:absolute;
+            width: 100%;
+            font-size: 80px;
+            text-align: center;
+            color: #b83f45;
+            font-weight: 500;
+        }
+        input{
+            outline: none;
+            padding: 16px 16px 16px 60px;
+            border:1px solid rgba(0,0,0,0.03) ;
+            background: rgba(0,0,0,0.003);
+            box-shadow: inset 0 -2px 1px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 150px;
+            width: 700px;
+            font-family: inherit;
+            color: inherit;
+        }
+        #ul_list{
+            list-style:none;
+            border:1px solid rgba(0,0,0,0.03);    
+            background: rgba(0,0,0,0.003);
+            box-shadow: inset 0 -2px 1px rgba(0,0,0,0.1);
+            position:relative;
+            top:220px;
+            width: 700px;
+            margin: 0 auto;
+        }
+        #ul_list li{
+            width:100%;
+            border:1px solid rgba(0,0,0,0.03);    
+            background: rgba(0,0,0,0.003);
+            box-shadow: inset 0 -2px 1px rgba(0,0,0,0.1);
+            padding: 16px 16px 16px 60px;
+        }
+        #footer{
+            position: relative;
+            top: 220px;
+            width:700px;
+            margin: 0 auto;
+        }
+        #footer ul{
+            float:left;
+            margin-right:80px;
+        }
+        #footer ul li{
+            display:inline;
+            margin:5px;
+            font-size: 15px;
+        }
+        #filter,#count{
+            margin-right:80px;
+            float:left;
+            font-size: 15px;
+        }
+        #footer span{
+            float:left;
+            font-size:15px;
+        }
+    </style>
+</head>
+<body>
+    <script src="./src/vdom/createElement.js"></script>
+    <script src="./src/vdom/patch.js"></script>
+    <script src="./src/redux/redux.js"></script>
+    <script src="./src/action/action.js"></script>
+    <script src="./src/reducer/visibilityFilter.js"></script>
+    <script src="./src/reducer/todos.js"></script>
+    <script src="./src/reducer/index.js"></script>
+    <script src="./src/store.js"></script>
+    <script src="./src/components/Vnode.js"></script>
+    <script src="./src/components/input.js"></script>
+    <script src="./src/components/title.js"></script>
+    <script src="./src/components//header.js"></script>
+    <script src="./src/components/todoListItem.js"></script>
+    <script src="./src/components/todoList.js"></script>
+    <script src="./src/components/footer.js"></script>
+    <script src="./src/components/app.js"></script>
+</body>
+</html>

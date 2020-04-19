@@ -1,0 +1,7 @@
+const addTodo = text => ({type:'ADD',text})
+const deleteTodo = id => ({type:'DELETE',id})
+const editTodo = (id,text)=> ({type:'EDIT',id,text})
+const completeTodo = id => ({type:'COMPLETE',id})
+const completeAll =() => ({type:'COMPLETE_ALL'})
+const clearCompleted = () => ({type:'CLEAR'})
+const setVisibilityFilter = filter => ({type:'SET_VISIBILITY_FILTER',filter})

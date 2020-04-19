@@ -1,0 +1,1 @@
+let store = uniqueRedux.createStore(rootReducer)
