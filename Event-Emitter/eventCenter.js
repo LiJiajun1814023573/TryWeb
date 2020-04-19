@@ -21,9 +21,9 @@ class EventCenter {
     subscribeOnce (type,callback) {
         const wrapper = (...args) =>{
             callback.apply(...args)
-            this.off(type,wrapper)
+            this.unsubsribe(type,wrapper)
         }
-        this.on(eventName,wrapper)
+        this.subscribe(eventName,wrapper)
     }
     /**
      * 发布事件
