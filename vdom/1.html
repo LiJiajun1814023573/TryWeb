@@ -8,9 +8,21 @@
 </head>
 <body>
     <script src='./createElement.js'></script>
-    <script src='./diff.js'></script>
     <script src='./patch.js'></script>
     <script>
+        let app1 = document.querySelector('body')
+        let list = createElement('ul',{style:{
+                background:'yellow'
+            },},'默哀键盘')
+        render(list,app1)
+        let app = document.querySelector('body')
+        const a = ()=>{
+            alert('这是按钮')
+        }
+        let button = createElement('button',{event:{'click':{a:a}}},'按钮')
+        console.log(button)
+        render(button,app)
+        
         let oldVnode = createElement('ul',{},createElement('li',{
             style:{
                 background:'red'
@@ -36,7 +48,6 @@
             key: 'D'
         },'D'))
         console.log(oldVnode)
-        let app = document.querySelector('body')
         render(oldVnode,app)
         let newVnode = createElement('ul',{},
         createElement('li',{

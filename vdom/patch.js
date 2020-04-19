@@ -11,15 +11,24 @@ const patch=(oldVnode,newVnode)=>{
         if(oldVnode.text == newVnode.text) return
         return oldVnode.domElement.textContent = newVnode.text
     }
+    //这一步很重要
     let domElement = newVnode.domElement = oldVnode.domElement
     updateProps(newVnode,oldVnode.props)
+    updateEvent(newVnode,oldVnode.event)
     //对比儿子
     //1.旧的有儿子，新的有儿子
     //2.旧的有儿子　新的无儿子
     //3.新增儿子
-    let oldChildren = oldVnode.children
-    let newChildren = newVnode.children
-
+    if(oldVnode.children){
+        var oldChildren = oldVnode.children
+    } else {
+        oldChildren = []
+    }
+    if(newVnode.children){
+        var newChildren = newVnode.children
+    } else {
+        newChildren = []
+    }
     if(oldChildren.length>0 && newChildren.length>0){
         //1.
         updateChildren(domElement,oldChildren,newChildren)
@@ -65,6 +74,33 @@ const updateProps = (newVnode,oldProps={})=>{
             }
         } else {
             domElement[newPropsName] = newProps[newPropsName]
+        }
+    }
+}
+const updateEvent =(newVnode,oldEvent={})=>{
+    let domElement = newVnode.domElement//真实dom
+    let newEvent = newVnode.event//当前节点中的事件
+    //新旧作对比
+    //1.旧的有，新的没有，事件直接删除
+    for(let oldEventName in oldEvent){
+        if(!newEvent[oldEventName]){
+            for (let handler in oldEvent[oldEventName])
+            domElement.removeEventListener(oldEventName,oldEvent[oldEventName][handler],false)
+        }
+    }
+    //2.旧的没有，新的有/旧的有新的也有
+    for(let newEventName in newEvent){
+        if(!oldEvent[newEventName]){
+            for(let handler in newEvent[newEventName])
+            domElement.addEventListener(newEventName,newEvent[newEventName][handler],false)
+            console.log('你好')
+        }else {
+            for(let handler in newEvent.newEventName){
+                for(let handler1 in oldEvent.newEventName) {
+                    domElement.removeEventListener(newEventName,oldEvent[newEventName][handler1],false)
+                }
+                domElement.addEventListener(newEventName,handler,false)
+            }
         }
     }
 }
