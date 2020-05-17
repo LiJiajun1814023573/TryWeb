@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+    <div id = "vd_player">
+        <canvas id="canvas"></canvas>      
+    </div>
+    <div id="control">
+        <div id="vd_controls"></div>
+        <button id="vd_play">&#xe7e3;</button>
+        <button id="vd_pause">&#xe629;</button>
+        <div id = "container">
+            <div id="vd_progress"></div>
+        </div>
+        <div id="vd_time"></div>
+        <div id="vd_volume"></div>
+        <div id="vd_resolution"></div>
+            <i id="vd_rateFont">倍速</i> <select id="vd_selectRate" >
+                <option value="0.75">0.75</option>
+                <option value="1.0" selected>1.0</option>
+                <option value="1.25">1.25</option>
+                <option value="1.5">1.5</option>
+                <option value="2.0">2.0</option>
+            </select>
+        <button id="vd_full">&#xe878;</button>
+    <!-- <button id="vd_nfull">Esc</button> --> 
+        <div id="content">
+            <input type="text" id="text" placeholder="发送一条弹幕吧~">
+            <input type="button" value="SEND" id="btn">
+            <input type="color" id="color">
+            <input type="range" id="range" max="45" min="20">
+        </div>
+    </div>
+    </div>
+    <script src="dist/main.js"></script>
+</body>
+</html>
